@@ -276,11 +276,11 @@ void down() {
 }
 
 void left() {
-  digitalWrite(PORT_1, !digitalRead(PORT_1));   //Toggle Storage Power
+  digitalWrite(PORT_1, !digitalRead(PORT_1));   //Toggle USB3 Port Number 1 Power
 }
 
 void right() {
-  digitalWrite(PORT_2, !digitalRead(PORT_2));   //Toggle Storage Power
+  digitalWrite(PORT_2, !digitalRead(PORT_2));   //Toggle USB3 Port Number 2 Power
 }
 
 void circle() {
