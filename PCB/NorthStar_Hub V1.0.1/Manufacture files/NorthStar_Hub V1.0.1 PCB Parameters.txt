@@ -1,0 +1,12 @@
+PCB parameters:
+
+PCB Material : FR-4
+PCB Layers : 4
+Thickness : 1.0mm
+Copper Weight : 1 oz
+PCB Color : Green
+Silkscreen Color : White
+Pads Finish : Lead-Free
+Via Solder mask : Solder mask cover
+Board Size(mm) : 67 x 37mm 
+嘉立创 JLC2313层压结构
