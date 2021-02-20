@@ -245,6 +245,7 @@ void loop()
       switch (tempByte) {
         case 'r':
           portReset();
+          break;
         case 'd':
           portDisable();
           break;
@@ -256,11 +257,13 @@ void loop()
           break;
         case 's':
           serialPassthrough = !serialPassthrough;
+          break;
         case 'i':
           digitalWrite(DISP_RST, LOW);
           delay(10);
           digitalWrite(DISP_RST, HIGH);
-        default:
+          break;
+         default:
           break;
       }
     }
