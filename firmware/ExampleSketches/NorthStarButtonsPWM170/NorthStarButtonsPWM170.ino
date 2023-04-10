@@ -446,10 +446,12 @@ void right() {
 }
 
 void circle() {
+/*
   if(serialPassthrough){
     serialPassthrough = false;
     Serial.println("Serial passthrough disabled");
   }
+*/
 }
  
 void dot() {
