@@ -27,7 +27,7 @@ According to the [schematic](https://github.com/CombineReality/North-Star-Integr
 1. On Linux, you may have to add yourself to the usergroup that `/dev/ttyACM0` (the Arduino Leonardo's serial port) is part of if you are receiving errors uploading sketches.
    1. Run `stat /dev/ttyACM0` in a terminal
    2. Note the user group that the serial port is assigned to, e.g. `dialout` or `plugdev`
-   3. Add your user to this group with `sudo usermod  -a -G [group] [username]` 
+   3. Add your user to this group with `sudo usermod -a -G [group] [username]` 
       1. `sudo` run command as superuser 
       2. `usermod` modify user attributes
       3.  `-a` append 
