@@ -69,6 +69,16 @@ byte keycode[6] = {KEY_DOWN_ARROW, KEY_RIGHT_ARROW, KEY_UP_ARROW, KEY_LEFT_ARROW
 //
 // https://www.arduino.cc/reference/en/language/functions/usb/keyboard/
 //
+// Analog input pin for the thermistor
+int thermistorPin = A5;
+// Resistor value used in the voltage divider circuit
+float resistorValue = 10000.0;
+// Temperature coefficient of the thermistor
+float betaValue = 3950.0;
+// Room temperature (in Kelvin)
+float roomTemperature = 292.15;
+// Define the series resistance (in ohms) used in the voltage divider circuit
+float seriesResistance = 4700.0;
 
 void setup()
 {
@@ -148,7 +158,6 @@ void setup()
                     button, FALLING);
   }
   digitalWrite(STORAGE, HIGH);
-  analogWrite(FAN, 160);
   digitalWrite(PORT_2, HIGH);
   digitalWrite(PORT_1, HIGH);
   Keyboard.begin();
@@ -157,6 +166,15 @@ void setup()
 
 void loop()
 {
+  // Update Fan Speed
+  float temp = getTemp();
+  int speed = getFanSpeed(temp);
+  analogWrite(FAN,speed);
+#if DEBUG
+  Serial.print(temp);
+  Serial.print(" ");
+  Serial.println(speed);
+#endif
   if (buttonPressed) // If the button() ISR was executed
   {
     buttonPressed = false; // Clear the buttonPressed flag
@@ -270,6 +288,36 @@ void loop()
     if(Serial1.available()){
       Serial1.flush();
     }
+  }
+}
+
+// Calculate temperature of thermistor
+float getTemp()
+{
+  delay(1000);
+  // Read the analog input value from the thermistor pin
+  int analogValue = analogRead(thermistorPin);
+
+  // Convert the analog value to resistance (in ohms) using the voltage divider formula
+  float resistance = seriesResistance / (1023.0 / analogValue - 1.0);
+
+  // Calculate the temperature (in Kelvin) using the Steinhart-Hart equation
+  float steinhart = log(resistance / resistorValue);     // ln(R/Ro)
+  steinhart /= betaValue;                                // 1/B * ln(R/Ro)
+  steinhart += 1.0 / roomTemperature;                    // + (1/To)
+  steinhart = 1.0 / steinhart;                           // Invert
+  float temperature = steinhart - 273.15;                // Convert to Celsius
+  return temperature;
+}
+
+// Calculate fan speed against linear curve (tested PWM value range is 55-255)
+int getFanSpeed(int temperature) {
+  if (temperature < 35) {
+    return 55;
+  } if (temperature > 70) {
+    return 255;
+  } else {
+    return map(temperature, 35, 70, 55, 160);
   }
 }
 
