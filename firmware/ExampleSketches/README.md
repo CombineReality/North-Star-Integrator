@@ -13,6 +13,7 @@ According to the [schematic](https://github.com/CombineReality/North-Star-Integr
   - 10KΩ NTC Thermistor set on `line 75`
   - 3950K beta value set on `line 77`
   - Resistor of 4.7KΩ for the voltage divider [(source)](https://raw.githubusercontent.com/CombineReality/North-Star-Integrator/master/docs/arduino_pins.png) set on `line 81`
+- I have bluetacked the thermistor to the centre front section of the T261 as it seems to run hottest.
 
 ## Changing the PWM curve
 
